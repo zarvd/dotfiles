@@ -34,6 +34,7 @@ Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'rust-lang/rust.vim'
+Plug 'neovimhaskell/haskell-vim'
 
 call plug#end()
 

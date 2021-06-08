@@ -4,7 +4,9 @@ vim:
 
 .PHONY: nvim
 nvim: vim
-	mkdir -p ~/.config/nvim; ln -sf $(CURDIR)/.vimrc ~/.config/nvim/init.vim
+	mkdir -p ~/.config/nvim; \
+		ln -sf $(CURDIR)/.vimrc ~/.config/nvim/init.vim; \
+		ln -sf $(CURDIR)/.config/nvim/coc-settings.json ~/.config/nvim/coc-settings.json
 
 .PHONY: emacs
 emacs:
