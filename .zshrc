@@ -21,7 +21,4 @@ antigen apply
 
 alias ls="exa"
 alias vim="nvim"
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/bytedance/.sdkman"
-[[ -s "/Users/bytedance/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/bytedance/.sdkman/bin/sdkman-init.sh"
+alias k="kubectl"
