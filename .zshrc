@@ -19,6 +19,10 @@ antigen apply
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
+
 alias ls="exa"
 alias vim="nvim"
 alias k="kubectl"
+alias sudo="sudo -E"
