@@ -1,26 +1,32 @@
+# source iff file exists
+include() {
+  [[ -f "$1" ]] && source "$1"
+}
+
 source $HOME/antigen.zsh
 
 antigen use oh-my-zsh
-
-antigen bundle git
-antigen bundle pip
-antigen bundle lein
-antigen bundle z
-antigen bundle gradle
-antigen bundle rust
-
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-completions
-
 antigen theme robbyrussell
+
+plugins=(
+  git pip lein z gradle rust kubectl 
+  zsh-users/zsh-syntax-highlighting
+  zsh-users/zsh-autosuggestions
+  zsh-users/zsh-completions
+)
+
+for plugin in ${plugins[@]}; do
+  antigen bundle ${plugin}
+done
 
 antigen apply
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# fzf for mac
+include ~/.fzf.zsh
 
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
+# fzf for archlinux
+include /usr/share/fzf/key-bindings.zsh
+include /usr/share/fzf/completion.zsh
 
 alias ls="exa"
 alias vim="nvim"
