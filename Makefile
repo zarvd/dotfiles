@@ -19,7 +19,8 @@ alacritty:
 
 .PHONY: zsh
 zsh:
-	ln -sf $(CURDIR)/.p10k.zsh ~/.p10k.zsh
+	mkdir -p ~/.config;
+	ln -sf $(CURDIR)/.config/starfish.toml ~/.config/starship.toml;
 	ln -sf $(CURDIR)/.zshrc ~/.zshrc
 
 .PHONY: tmux

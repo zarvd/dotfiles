@@ -1,0 +1,21 @@
+add_newline = false
+
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[✗](bold red)"
+vicmd_symbol = "[V](bold green)"
+
+[azure]
+disabled = true
+format = "on [$symbol($subscription)]($style) "
+symbol = "ﴃ "
+style = "blue bold"
+
+[rust]
+disabled = false
+
+[golang]
+disabled = false
+
+[time]
+disabled = false
