@@ -20,7 +20,7 @@ alacritty:
 .PHONY: zsh
 zsh:
 	mkdir -p ~/.config;
-	ln -sf $(CURDIR)/.config/starfish.toml ~/.config/starship.toml;
+	ln -sf $(CURDIR)/.config/starship.toml ~/.config/starship.toml;
 	ln -sf $(CURDIR)/.zshrc ~/.zshrc
 
 .PHONY: tmux
