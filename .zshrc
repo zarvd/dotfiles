@@ -6,7 +6,6 @@ include() {
 source $HOME/antigen.zsh
 
 antigen use oh-my-zsh
-#antigen theme romkatv/powerlevel10k
 
 plugins=(
   git pip lein z gradle rust kubectl 
@@ -36,3 +35,13 @@ alias vim="nvim"
 alias k="kubectl"
 alias py="python"
 alias sudo="sudo -E"
+
+fuck_gfw() {
+  export HTTP_PROXY=http://127.0.0.1:7890
+  export HTTPS_PROXY=${HTTP_PROXY}
+}
+
+gfw() {
+  unset HTTP_PROXY
+  unset HTTPS_PROXY
+}
