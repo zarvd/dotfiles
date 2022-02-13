@@ -4,7 +4,7 @@ error_symbol = "[✗](bold red)"
 vicmd_symbol = "[V](bold green)"
 
 [env_var.HTTP_PROXY]
-format = "across ﳼ ($style) "
+format = "across ﳼ ($style)"
 
 [azure]
 disabled = true
