@@ -1,5 +1,5 @@
 .PHONY: all
-all: nvim emacs alacritty zsh tmux wm
+all: nvim emacs alacritty zsh tmux wm cargo npm
 
 .PHONY: nvim
 nvim:
@@ -43,3 +43,14 @@ wm:
 	ln -sf $(CURDIR)/.config/polybar/launch.sh ~/.config/polybar/launch.sh
 	mkdir -p ~/.config/rofi
 	ln -sf $(CURDIR)/.config/rofi/config.rasi ~/.config/rofi/config.rasi
+
+.PHONY: cargo
+cargo:
+	@echo "configure cargo"
+	mkdir -p ~/.cargo
+	ln -sf $(CURDIR)/.cargo/config.toml ~/.cargo/config.toml
+
+.PHONY: npm
+npm:
+	@echo "configure npm"
+	ln -sf $(CURDIR)/.npmrc ~/.npmrc
