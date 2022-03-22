@@ -32,11 +32,19 @@ Plug 'scrooloose/nerdcommenter'
 " Languages
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-Plug 'rust-lang/rust.vim'
-Plug 'neovimhaskell/haskell-vim'
+
+" Keyboard
+Plug 'folke/which-key.nvim'
 
 call plug#end()
+
+lua << EOF
+  require("which-key").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
 
 " Windows
 nnoremap <leader>w/ <c-w>v
@@ -52,6 +60,3 @@ nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-x><C-f> :edit .<CR>
 nnoremap <C-x><C-s> :w<CR>
-
-" Rust
-let g:rustfmt_autosave = 1

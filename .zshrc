@@ -30,11 +30,11 @@ include /usr/share/fzf/completion.zsh
 
 eval "$(starship init zsh)"
 
-alias ls="exa"
+alias ls="lsd"
+alias tree="lsd --tree"
 alias vim="nvim"
 alias k="kubectl"
 alias py="python"
-alias sudo="sudo -E"
 
 fuck_gfw() {
   export HTTP_PROXY=http://127.0.0.1:7890

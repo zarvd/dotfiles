@@ -5,7 +5,7 @@ all: nvim emacs alacritty zsh tmux wm cargo npm
 nvim:
 	@echo "configure nvim"
 	ln -sf $(CURDIR)/.vimrc ~/.vimrc
-	ln -sf $(CURDIR)/.vimrc ~/.ideavimrc
+	ln -sf $(CURDIR)/.ideavimrc ~/.ideavimrc
 	mkdir -p ~/.config/nvim
 	ln -sf $(CURDIR)/.vimrc ~/.config/nvim/init.vim
 	ln -sf $(CURDIR)/.config/nvim/coc-settings.json ~/.config/nvim/coc-settings.json

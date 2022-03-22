@@ -1,0 +1,11 @@
+source ~/.vimrc
+
+source ~/.intellimacs/spacemacs.vim
+
+" (Optional) Enable other Intellimacs modules
+source ~/.intellimacs/extra.vim
+source ~/.intellimacs/major.vim
+source ~/.intellimacs/hybrid.vim
+
+" (Optional) Enable which-key plugin
+source ~/.intellimacs/which-key.vim
