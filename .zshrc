@@ -35,24 +35,3 @@ alias tree="lsd --tree"
 alias vim="nvim"
 alias k="kubectl"
 alias py="python"
-
-fuck_gfw() {
-  export HTTP_PROXY=http://127.0.0.1:7890
-  export HTTPS_PROXY=${HTTP_PROXY}
-  export NO_PROXY=localhost,127.0.0.1
-}
-
-gfw() {
-  unset HTTP_PROXY
-  unset HTTPS_PROXY
-}
-
-spawn_with_proxy() {
-  BIN=$1
-  fuck_gfw
-
-  ${BIN} > /dev/null 2>&1 &
-  disown
-
-  gfw
-}
