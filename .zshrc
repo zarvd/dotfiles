@@ -19,6 +19,14 @@ for plugin in ${plugins[@]}; do
   antigen bundle ${plugin}
 done
 
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
+  autoload -Uz compinit
+  compinit
+fi
+
 antigen apply
 
 # fzf for mac

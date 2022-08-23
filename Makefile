@@ -1,5 +1,5 @@
 .PHONY: all
-all: nvim emacs alacritty zsh tmux wm cargo npm
+all: nvim emacs alacritty zsh tmux wm cargo npm zellij
 
 .PHONY: nvim
 nvim:
@@ -54,3 +54,9 @@ cargo:
 npm:
 	@echo "configure npm"
 	ln -sf $(CURDIR)/.npmrc ~/.npmrc
+
+.PHONY: zellij
+zellij:
+	@echo "configure zellij"
+	mkdir -p ~/.config/zellij
+	ln -sf $(CURDIR)/.config/zellij/config.yaml ~/.config/zellij/config.yaml
