@@ -1,5 +1,5 @@
 .PHONY: all
-all: nvim emacs alacritty zsh tmux wm cargo npm zellij
+all: nvim emacs alacritty zsh wm cargo npm zellij
 
 .PHONY: nvim
 nvim:
@@ -26,11 +26,6 @@ zsh:
 	mkdir -p ~/.config
 	ln -sf $(CURDIR)/.config/starship.toml ~/.config/starship.toml
 	ln -sf $(CURDIR)/.zshrc ~/.zshrc
-
-.PHONY: tmux
-tmux:
-	@echo "configure tmux"
-	ln -sf $(CURDIR)/.tmux.conf ~/.tmux.conf
 
 .PHONY: wm
 wm:
