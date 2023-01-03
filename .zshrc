@@ -7,12 +7,13 @@ source $HOME/antigen.zsh
 
 antigen use oh-my-zsh
 
+antigen theme simple
+
 plugins=(
-  git pip lein z gradle rust kubectl 
+  git z rust kubectl 
   zsh-users/zsh-syntax-highlighting
   zsh-users/zsh-autosuggestions
   zsh-users/zsh-completions
-  command-not-found
 )
 
 for plugin in ${plugins[@]}; do

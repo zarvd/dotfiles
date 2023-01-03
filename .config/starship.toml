@@ -16,6 +16,7 @@ style = "blue bold"
 disabled = false
 
 [aws]
+disabled = true
 symbol = "  "
 
 [conda]

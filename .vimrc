@@ -4,6 +4,7 @@ imap fd <ESC>
 nmap fd <ESC>
 vmap fd <ESC>
 omap fd <ESC>
+set clipboard=unnamed
 set number relativenumber
 set so=999
 set expandtab
