@@ -33,6 +33,7 @@ Plug 'scrooloose/nerdcommenter'
 " Languages
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
+Plug 'NoahTheDuke/vim-just'
 
 " Keyboard
 Plug 'folke/which-key.nvim'
