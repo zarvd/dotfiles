@@ -1,5 +1,5 @@
 .PHONY: all
-all: nvim emacs alacritty zsh wm cargo npm wezterm
+all: nvim alacritty zsh wm cargo npm wezterm
 
 .PHONY: nvim
 nvim:
@@ -9,11 +9,6 @@ nvim:
 	mkdir -p ~/.config/nvim
 	ln -sf $(CURDIR)/.vimrc ~/.config/nvim/init.vim
 	ln -sf $(CURDIR)/.config/nvim/coc-settings.json ~/.config/nvim/coc-settings.json
-
-.PHONY: emacs
-emacs:
-	@echo "configure emacs"
-	ln -sf $(CURDIR)/.spacemacs ~/.spacemacs
 
 .PHONY: alacritty
 alacritty:
@@ -49,19 +44,9 @@ cargo:
 npm:
 	@echo "configure npm"
 	ln -sf $(CURDIR)/.npmrc ~/.npmrc
-<<<<<<< HEAD
-
-.PHONY: zellij
-zellij:
-	@echo "configure zellij"
-	mkdir -p ~/.config/zellij
-	ln -sf $(CURDIR)/.config/zellij/config.yaml ~/.config/zellij/config.yaml
-||||||| parent of c29eba5 (Add wezterm)
-=======
 
 .PHONY: wezterm
 wezterm:
 	@echo "configure wezterm"
 	mkdir -p ~/.config/wezterm
 	ln -sf $(CURDIR)/.config/wezterm/wezterm.lua ~/.config/wezterm/wezterm.lua
->>>>>>> c29eba5 (Add wezterm)
