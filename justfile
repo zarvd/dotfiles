@@ -8,6 +8,7 @@ nvim:
   mkdir -p ~/.config/nvim
   ln -sf {{ cur_dir }}/.vimrc ~/.config/nvim/init.vim
   ln -sf {{ cur_dir }}/.config/nvim/coc-settings.json ~/.config/nvim/coc-settings.json
+  if [ ! -d ${HOME}/.intellimacs ]; then git clone git@github.com:MarcoIeni/intellimacs.git ~/.intellimacs; fi
 
 alacritty:
   ln -sf {{ cur_dir }}/.alacritty.yml ~/.alacritty.yml
