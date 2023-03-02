@@ -28,6 +28,7 @@ then
   compinit
 fi
 
+antigen theme simple
 antigen apply
 
 # fzf for mac
@@ -37,10 +38,10 @@ include ~/.fzf.zsh
 include /usr/share/fzf/key-bindings.zsh
 include /usr/share/fzf/completion.zsh
 
-eval "$(starship init zsh)"
-
 alias ls="lsd"
 alias tree="lsd --tree"
 alias vim="nvim"
 alias k="kubectl"
 alias py="python"
+
+bindkey \^U backward-kill-line
