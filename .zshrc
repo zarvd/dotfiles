@@ -45,3 +45,20 @@ alias k="kubectl"
 alias py="python"
 
 bindkey \^U backward-kill-line
+
+rebase() {
+  TARGET=${1:-master}
+  CUR=$(git branch --show-current)
+  REMOTES=$(git remote)
+  UPSTREAM="upstream"
+  if (($REMOTES[(I)$UPSTREAM])); then
+    git fetch upstream master
+    TARGET=upstream/master
+  else
+    git fetch origin master
+    TARGET=origin/master
+  fi
+  echo "Rebasing ${CUR} on ${TARGET}"
+  git checkout ${CUR}
+  git rebase -i ${TARGET}
+}
