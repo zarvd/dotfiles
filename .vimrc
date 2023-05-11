@@ -34,6 +34,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
 Plug 'NoahTheDuke/vim-just'
+Plug 'kaarmu/typst.vim'
 
 " Keyboard
 Plug 'folke/which-key.nvim'

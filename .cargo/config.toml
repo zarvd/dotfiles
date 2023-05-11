@@ -1,8 +1,8 @@
 [net]
 git-fetch-with-cli = true
 
-[source.crates-io]
-replace-with = 'tuna'
+#[source.crates-io]
+#replace-with = 'tuna'
 
 [source.tuna]
 registry = "https://mirrors.tuna.tsinghua.edu.cn/git/crates.io-index.git"
