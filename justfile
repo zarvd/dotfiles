@@ -21,6 +21,7 @@ zsh:
 fish:
   mkdir -p ~/.config/fish
   ln -sf {{ cur_dir }}/.config/fish/config.fish ~/.config/fish/config.fish
+  ln -sf {{ cur_dir }}/.config/fish/fish_plugins ~/.config/fish/fish_plugins
 
 wm:
   mkdir -p ~/.config/i3

@@ -62,6 +62,8 @@ function setup_alias
   alias gd="git diff"
   alias gst="git status"
   alias gco="git checkout"
+  alias ga="git add"
+  alias gca="git commit -a"
   alias gp="git push"
   alias grbi="git rebase -i"
   alias grbc="git rebase --continue"
