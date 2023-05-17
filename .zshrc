@@ -3,49 +3,60 @@ include() {
   [[ -f "$1" ]] && source "$1"
 }
 
-source $HOME/antigen.zsh
+setup_antigen() {
+  source $HOME/antigen.zsh
+  antigen use oh-my-zsh
+  antigen theme simple
 
-antigen use oh-my-zsh
+  # Setup plugins
+  plugins=(
+    git z rust kubectl
+    zsh-users/zsh-syntax-highlighting
+    zsh-users/zsh-autosuggestions
+    zsh-users/zsh-completions
+  )
+  for plugin in ${plugins[@]}; do
+    antigen bundle ${plugin}
+  done
 
-antigen theme simple
+  if type brew &>/dev/null
+  then
+    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+    autoload -Uz compinit
+    compinit
+  fi
 
-plugins=(
-  git z rust kubectl 
-  zsh-users/zsh-syntax-highlighting
-  zsh-users/zsh-autosuggestions
-  zsh-users/zsh-completions
-)
+  antigen apply
+}
 
-for plugin in ${plugins[@]}; do
-  antigen bundle ${plugin}
-done
+setup_fzf() {
+  # fzf for mac
+  include ~/.fzf.zsh
 
-if type brew &>/dev/null
-then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+  # fzf for archlinux
+  include /usr/share/fzf/key-bindings.zsh
+  include /usr/share/fzf/completion.zsh
+}
 
-  autoload -Uz compinit
-  compinit
-fi
+setup_alias() {
+  alias ls="lsd"
+  alias tree="lsd --tree"
+  alias vim="nvim"
+  alias k="kubectl"
+  alias py="python"
 
-antigen theme simple
-antigen apply
+  bindkey \^U backward-kill-line
+}
 
-# fzf for mac
-include ~/.fzf.zsh
+setup_antigen
+setup_fzf
+setup_alias
 
-# fzf for archlinux
-include /usr/share/fzf/key-bindings.zsh
-include /usr/share/fzf/completion.zsh
+# ===============
+# Custom commands
+# ===============
 
-alias ls="lsd"
-alias tree="lsd --tree"
-alias vim="nvim"
-alias k="kubectl"
-alias py="python"
-
-bindkey \^U backward-kill-line
-
+# Rebase helper
 rebase() {
   TARGET=${1:-master}
   CUR=$(git branch --show-current)
