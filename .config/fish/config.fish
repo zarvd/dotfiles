@@ -1,3 +1,18 @@
+## Helpers
+
+function confirm
+  while true
+    read -l -P 'Do you want to continue? [y/N] ' rv
+
+    switch $rv
+      case Y y
+        return 0
+      case '' N n
+        return 1
+    end
+  end
+end
+
 ## Custom Commands
 
 function rebase
@@ -6,14 +21,16 @@ function rebase
 
   if contains "upstream" $remotes
     git fetch upstream master
-    set -l target_branch "upstream/master"
+    set -f target_branch "upstream/master"
   else
     git fetch origin master
-    set -l target_branch "origin/master"
+    set -f target_branch "origin/master"
   end
   echo "Rebasing $current_branch on $target_branch"
-  git checkout $current_branch
-  git rebase -i $target_branch
+  if confirm
+    git checkout $current_branch
+    git rebase -i $target_branch
+  end
 end
 
 ## Settings
