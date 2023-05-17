@@ -1,6 +1,6 @@
 cur_dir := `pwd`
 
-default: nvim alacritty zsh wm cargo npm wezterm
+default: nvim alacritty zsh fish wm cargo npm wezterm
 
 nvim:
   ln -sf {{ cur_dir }}/.vimrc ~/.vimrc
@@ -17,6 +17,10 @@ zsh:
   mkdir -p ~/.config
   ln -sf {{ cur_dir }}/.config/starship.toml ~/.config/starship.toml
   ln -sf {{ cur_dir }}/.zshrc ~/.zshrc
+
+fish:
+  mkdir -p ~/.config/fish
+  ln -sf {{ cur_dir }}/.config/fish/config.fish ~/.config/fish/config.fish
 
 wm:
   mkdir -p ~/.config/i3
