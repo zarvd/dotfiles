@@ -19,17 +19,16 @@ function rebase
   set -l current_branch (git branch --show-current)
   set -l remotes (git remote)
 
+  set -f remote origin
   if contains "upstream" $remotes
-    git fetch upstream master
-    set -f target_branch "upstream/master"
-  else
-    git fetch origin master
-    set -f target_branch "origin/master"
+    set -f remote upstream
   end
-  echo "Rebasing $current_branch on $target_branch"
+  echo Rebasing $current_branch on $remote/master
+
   if confirm
+    git fetch $remote master
     git checkout $current_branch
-    git rebase -i $target_branch
+    git rebase -i $remote/master
   end
 end
 
@@ -85,6 +84,7 @@ function setup_alias
   alias grbi="git rebase -i"
   alias grbc="git rebase --continue"
   alias grba="git rebase --abort"
+  alias grhh="git reset --hard"
 
   # Keybindings
   bind \cu backward-kill-line
