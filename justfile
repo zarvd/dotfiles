@@ -1,6 +1,6 @@
 cur_dir := `pwd`
 
-default: nvim alacritty zsh fish wm cargo npm wezterm
+default: nvim fish wm cargo npm wezterm
 
 nvim:
   ln -sf {{ cur_dir }}/.vimrc ~/.vimrc
@@ -9,14 +9,6 @@ nvim:
   ln -sf {{ cur_dir }}/.vimrc ~/.config/nvim/init.vim
   ln -sf {{ cur_dir }}/.config/nvim/coc-settings.json ~/.config/nvim/coc-settings.json
   if [ ! -d ${HOME}/.intellimacs ]; then git clone git@github.com:MarcoIeni/intellimacs.git ~/.intellimacs; fi
-
-alacritty:
-  ln -sf {{ cur_dir }}/.alacritty.yml ~/.alacritty.yml
-
-zsh:
-  mkdir -p ~/.config
-  ln -sf {{ cur_dir }}/.config/starship.toml ~/.config/starship.toml
-  ln -sf {{ cur_dir }}/.zshrc ~/.zshrc
 
 fish:
   mkdir -p ~/.config/fish
@@ -43,3 +35,6 @@ npm:
 wezterm:
   mkdir -p ~/.config/wezterm
   ln -sf {{ cur_dir }}/.config/wezterm/wezterm.lua ~/.config/wezterm/wezterm.lua
+
+install-fisher:
+  curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
