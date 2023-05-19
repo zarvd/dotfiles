@@ -1,6 +1,10 @@
 cur_dir := `pwd`
 
-default: nvim fish wm cargo npm wezterm
+default: nvim fish wm cargo npm wezterm bat
+
+bat:
+  mkdir -p ~/.config/bat
+  ln -sf {{ cur_dir }}/.config/bat/config ~/.config/bat/config
 
 nvim:
   ln -sf {{ cur_dir }}/.vimrc ~/.vimrc
