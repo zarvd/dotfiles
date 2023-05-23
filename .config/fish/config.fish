@@ -36,7 +36,7 @@ end
 
 function fish_prompt
   # Value
-  set -l return_code $pipestatus
+  set -l return_code $status
   set -l cwd (prompt_pwd --full-length-dirs=3 --dir-length=3)
   set -l git_branch (fish_git_prompt)
 
