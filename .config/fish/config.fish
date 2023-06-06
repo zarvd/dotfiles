@@ -34,6 +34,9 @@ end
 
 ## Settings
 
+function fish_greeting
+end
+
 function fish_prompt
   # Value
   set -l return_code $status
@@ -91,9 +94,7 @@ function setup_alias
 end
 
 function load_env
-  if test -f "~/.env.fish"
-    source ~/.env.fish
-  end
+  source ~/.env.fish
 end
 
 load_env
