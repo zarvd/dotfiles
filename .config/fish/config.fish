@@ -78,6 +78,7 @@ function setup_alias
   alias ipy="ipython"
 
   # Git
+  alias gb="git branch"
   alias gd="git diff"
   alias gst="git status"
   alias gco="git checkout"
