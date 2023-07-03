@@ -25,7 +25,7 @@ wm:
   ln -sf {{ cur_dir }}/.config/i3/wallpaper.jpg ~/.config/i3/wallpaper.jpg
   mkdir -p ~/.config/polybar
   ln -sf {{ cur_dir }}/.config/polybar/config ~/.config/polybar/config
-  ln -sf {{ cur_dir}}/.config/polybar/launch.sh ~/.config/polybar/launch.sh
+  ln -sf {{ cur_dir }}/.config/polybar/launch.sh ~/.config/polybar/launch.sh
   mkdir -p ~/.config/rofi
   ln -sf {{ cur_dir }}/.config/rofi/config.rasi ~/.config/rofi/config.rasi
 
