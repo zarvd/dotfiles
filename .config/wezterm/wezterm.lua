@@ -1,7 +1,8 @@
-local wezterm = require 'wezterm'
+local wezterm = require("wezterm")
 
 return {
-  font = wezterm.font 'Cascadia Mono',
-  font_size = 12.0,
-  color_scheme = 'VSCodeDark+ (Gogh)',
+	font = wezterm.font("FiraCode Nerd Font Mono"),
+	font_size = 12.0,
+	color_scheme = "Bamboo Multiplex",
+	-- color_scheme = "VSCodeDark+ (Gogh)",
 }

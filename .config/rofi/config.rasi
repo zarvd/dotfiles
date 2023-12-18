@@ -1,7 +1,0 @@
-configuration {
-  font: "Comic Mono 13";
-  show-icons: true;
-  icon-theme: "Papirus";
-  dpi: 192;
-}
-
