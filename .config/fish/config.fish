@@ -66,6 +66,7 @@ function setup_alias
     alias ...="cd ../.."
     alias ....="cd ../../.."
     alias .....="cd ../../../.."
+    alias ......="cd ../../../../.."
 
     # Editor
     alias vim="nvim"
@@ -78,6 +79,7 @@ function setup_alias
     alias ipy="ipython"
 
     # Git
+    alias g="git"
     alias gb="git branch"
     alias gd="git diff"
     alias gst="git status"
@@ -85,6 +87,8 @@ function setup_alias
     alias ga="git add"
     alias gca="git commit -a"
     alias gp="git push"
+    alias gsta="git stash"
+    alias gstp="git stash pop"
     alias grbi="git rebase -i"
     alias grbc="git rebase --continue"
     alias grba="git rebase --abort"
