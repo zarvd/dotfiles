@@ -47,9 +47,17 @@ function fish_prompt
     set -l cwd_color (set_color $fish_color_cwd)
     set -l git_branch_color (set_color $fish_color_operator --bold)
     set -l return_code_color (set_color $fish_color_status)
+    set -l remote_color (set_color $fish_color_redirection)
     set -l end_color (set_color normal)
 
     # Print
+    if set -q SSH_CLIENT
+      echo -n "["
+      echo -n $remote_color
+      echo -n "REMOTE"
+      echo -n $end_color
+      echo -n "] "
+    end
     echo -n $cwd_color$cwd$end_color
     echo -n $git_branch_color$git_branch$end_color
     if [ $return_code != 0 ]
