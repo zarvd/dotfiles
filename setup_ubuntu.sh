@@ -136,7 +136,7 @@ function install_utilities() {
   print_section "Install Utilities"
 
   sudo apt update
-  sudo apt install -y build-essential make jq yq
+  sudo apt install -y build-essential make jq
   cargo install bat fd-find git-delta just lsd ripgrep tealdeer tokei
 }
 
