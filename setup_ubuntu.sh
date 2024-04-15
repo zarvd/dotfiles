@@ -16,6 +16,11 @@ function print_section() {
 function setup_fish() {
   print_section "Setup Fish"
 
+  if command -v fish &> /dev/null; then
+    echo "Skip"
+    return
+  fi
+
   sudo apt-add-repository -y ppa:fish-shell/release-3
   sudo apt update
   sudo apt install -y fish
@@ -44,6 +49,11 @@ function setup_fish() {
 function setup_rust() {
   print_section "Setup Rust"
 
+  if command -v cargo &> /dev/null; then
+    echo "Skip"
+    return
+  fi
+
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
   mkdir -p "${HOME}/.cargo"
   ln -s "$(realpath .cargo/config.toml)" "${HOME}/.cargo/config.toml"
@@ -51,6 +61,11 @@ function setup_rust() {
 
 function setup_golang() {
   print_section "Setup Golang"
+
+  if command -v go &> /dev/null; then
+    echo "Skip"
+    return
+  fi
 
   VERSION="1.22.2"
   URL="https://go.dev/dl/go${VERSION}.linux-amd64.tar.gz"
@@ -67,17 +82,37 @@ function setup_golang() {
 
 function setup_bat() {
   print_section "Setup Bat"
+
   DIR="${HOME}/.config/bat"
+
+  if [ ! -e "${DIR}/config" ]; then
+    echo "Skip"
+    return
+  fi
+
   mkdir -p "${DIR}"
   ln -s "$(realpath .config/bat/config)" "${DIR}/config"
 }
 
 function setup_ideavim() {
   print_section "Setup IdeaVim"
+
+  if [ ! -e "${HOME}/.ideavimrc" ]; then
+    echo "Skip"
+    return
+  fi
+
   ln -s "$(realpath .ideavimrc)" "${HOME}/.ideavimrc"
 }
 
 function setup_docker() {
+  print_section "Setup Docker"
+
+  if command -v docker &> /dev/null; then
+    echo "Skip"
+    return
+  fi
+
   # Add Docker's official GPG key:
   sudo apt-get update
   sudo apt-get install -y ca-certificates curl
@@ -99,10 +134,16 @@ function setup_docker() {
 
 function install_utilities() {
   print_section "Install Utilities"
-  sudo apt update -y
+
+  sudo apt update
   sudo apt install -y build-essential make jq yq
   cargo install bat fd-find git-delta just lsd ripgrep tealdeer tokei
 }
+
+
+export PATH=$PATH:$HOME/.cargo/bin
+export PATH=$PATH:$HOME/go/bin
+export PATH=$PATH:/usr/local/go/bin
 
 setup_rust
 setup_golang
