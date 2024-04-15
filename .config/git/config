@@ -1,0 +1,20 @@
+[core]
+  editor = nvim
+  pager = delta
+[init]
+  defaultBranch = master
+[push]
+  default = current
+[interactive]
+  diffFilter = delta --color-only
+[merge]
+  conflictstyle = diff3
+[delta]
+  line-numbers = true
+  side-by-side = true
+[diff]
+  algorithm = histogram
+[url "git@github.com:"]
+  insteadOf = "https://github.com/"
+[url "git@github.com:"]
+  insteadOf = "gh:"

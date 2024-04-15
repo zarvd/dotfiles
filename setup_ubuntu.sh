@@ -44,6 +44,9 @@ function setup_fish() {
     echo 'fish_add_path $HOME/go/bin' >> "${ENV_FISH_FILE}"
     echo 'fish_add_path /usr/local/go/bin' >> "${ENV_FISH_FILE}"
   fi
+
+  sudo sed -i 's/auth\s\+required\s\+pam_shells.so/auth sufficient pam_shells.so/g' /etc/pam.d/chsh
+  chsh -s "$(which fish)"
 }
 
 function setup_rust() {
@@ -85,7 +88,7 @@ function setup_bat() {
 
   DIR="${HOME}/.config/bat"
 
-  if [ ! -e "${DIR}/config" ]; then
+  if [ -e "${DIR}/config" ]; then
     echo "Skip"
     return
   fi
@@ -97,7 +100,7 @@ function setup_bat() {
 function setup_ideavim() {
   print_section "Setup IdeaVim"
 
-  if [ ! -e "${HOME}/.ideavimrc" ]; then
+  if [ -e "${HOME}/.ideavimrc" ]; then
     echo "Skip"
     return
   fi
@@ -132,19 +135,40 @@ function setup_docker() {
   sudo usermod -aG docker "${USER}"
 }
 
+function setup_git() {
+  print_section "Setup Git"
+
+  DIR="${HOME}/.config/git"
+  if [ -e "${DIR}/config" ]; then
+    echo "Skip"
+    return
+  fi
+
+  mkdir -p "${DIR}"
+  ln -s "$(realpath .config/git/config)" "${DIR}/config"
+
+  CFG="${HOME}/.gitconfig"
+  touch "${CFG}"
+  cat > "${CFG}" <<EOL
+
+[include]
+  path = ~/.config/git/config
+EOL
+}
+
 function install_utilities() {
   print_section "Install Utilities"
 
   sudo apt update
-  sudo apt install -y build-essential make jq
+  sudo apt install -y build-essential make jq neovim
   cargo install bat fd-find git-delta just lsd ripgrep tealdeer tokei
 }
-
 
 export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:$HOME/go/bin
 export PATH=$PATH:/usr/local/go/bin
 
+setup_git
 setup_rust
 setup_golang
 setup_fish
