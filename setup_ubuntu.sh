@@ -97,14 +97,22 @@ function setup_bat() {
   ln -s "$(realpath .config/bat/config)" "${DIR}/config"
 }
 
-function setup_ideavim() {
+function setup_vim() {
   print_section "Setup IdeaVim"
 
+  sudo apt update
+  sudo apt install -y neovim
+
+  mkdir -p "${HOME}/.config/nvim"
+
   if [ -e "${HOME}/.ideavimrc" ]; then
-    echo "Skip"
-    return
+    rm "${HOME}/.ideavimrc"
+  fi
+  if [ -e "${HOME}/.config/nvim/init.vim" ]; then
+    rm "${HOME}/.config/nvim/init.vim"
   fi
 
+  ln -s "$(realpath .config/nvim/init.vim)" "${HOME}/.config/nvim/init.vim"
   ln -s "$(realpath .ideavimrc)" "${HOME}/.ideavimrc"
 }
 
@@ -160,7 +168,7 @@ function install_utilities() {
   print_section "Install Utilities"
 
   sudo apt update
-  sudo apt install -y build-essential make jq neovim
+  sudo apt install -y build-essential make jq
   cargo install bat fd-find git-delta just lsd ripgrep tealdeer tokei
 }
 
@@ -173,6 +181,6 @@ setup_rust
 setup_golang
 setup_fish
 setup_bat
-setup_ideavim
+setup_vim
 setup_docker
 install_utilities
