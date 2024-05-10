@@ -93,6 +93,7 @@ function setup_alias
     alias gst="git status"
     alias gco="git checkout"
     alias ga="git add"
+    alias gc="git commit"
     alias gca="git commit -a"
     alias gp="git push"
     alias gsta="git stash"
