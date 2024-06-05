@@ -113,13 +113,51 @@ class Ubuntu(Platform):
 
     @UI.section("Installing Fish")
     def install_fish(self):
-        pass
+        if shutil.which("fish"):
+            UI.warning("Fish is already installed, skipping")
+            return
+
+        UI.step("Install fish")
+        run_shell("sudo apt-add-repository -y ppa:fish-shell/release-3")
+        run_shell("sudo apt update")
+        run_shell("sudo apt install -y fish")
+
+        UI.step("Install fisher")
+        run_shell(
+            "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source"
+        )
+        run_shell("fisher install jorgebucaran/fisher")
+        run_shell("fisher install jethrokuan/z")
+
+        UI.step("Setup fish config")
+        run_shell("mkdir -p ${HOME}/.config/fish")
+        run_shell(
+            "ln -sf $(realpath .config/fish/config.fish) ~/.config/fish/config.fish"
+        )
+        run_shell(
+            "ln -sf $(realpath .config/fish/fish_plugins) ~/.config/fish/fish_plugins"
+        )
+
+        UI.step("Change shell to fish")
+        run_shell(
+            "sudo sed -i 's/auth\s\+required\s\+pam_shells.so/auth sufficient pam_shells.so/g' /etc/pam.d/chsh"
+        )
+        run_shell("chsh -s $(which fish)")
 
     @UI.section("Installing Go")
     def install_golang(self):
         if shutil.which("go"):
             UI.warning("Go is already installed, skipping")
             return
+
+        url = "https://go.dev/dl/go${}.linux-amd64.tar.gz".format(versions["go"])
+        path = "${HOME}/downloads/go.tar.gz"
+
+        run_shell("mkdir -p ${HOME}/downloads")
+        run_shell(f"curl -o ${path} ${url}")
+
+        run_shell("sudo rm -rf /usr/local/go")
+        run_shell(f"sudo tar -C /usr/local -xzf ${path}")
 
 
 class MacOS(Platform):
