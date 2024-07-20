@@ -88,6 +88,13 @@ function fish_prompt
       echo -n $end_color
       echo -n "] "
     end
+    if set -q HTTP_PROXY
+      echo -n "["
+      echo -n $remote_color
+      echo -n "PROXIED"
+      echo -n $end_color
+      echo -n "] "
+    end
     echo -n $cwd_color$cwd$end_color
     echo -n $git_branch_color$git_branch$end_color
     if [ $return_code != 0 ]
@@ -146,12 +153,18 @@ setup_alias
 
 function set_proxy
     set -gx https_proxy "http://127.0.0.1:7890"
+    set -gx HTTPS_PROXY "http://127.0.0.1:7890"
     set -gx http_proxy "http://127.0.0.1:7890"
+    set -gx HTTP_PROXY "http://127.0.0.1:7890"
     set -gx all_proxy "socks5://127.0.0.1:7890"
+    set -gx ALL_PROXY "socks5://127.0.0.1:7890"
 end
 
 function unset_proxy
     set -e https_proxy
+    set -e HTTPS_PROXY
     set -e http_proxy
+    set -e HTTP_PROXY
     set -e all_proxy
+    set -e ALL_PROXY
 end
