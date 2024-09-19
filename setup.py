@@ -7,10 +7,10 @@ import subprocess
 
 from ui import UI
 
-versions = {"go": "1.22.2"}
+versions = {"go": "1.23.1"}
 
 
-def run_shell(cmd: str) -> str:
+def run(cmd: str) -> str:
     rv = subprocess.run(cmd, check=True, text=True, stdout=subprocess.PIPE, shell=True)
     return rv.stdout.strip()
 
@@ -29,7 +29,7 @@ class Platform(ABC):
         ]
         for pkg in cargo_pkgs:
             UI.step(f"Installing {pkg}")
-            run_shell(f"cargo install {pkg}")
+            run(f"cargo install {pkg} --locked --force")
 
     @abstractmethod
     def install_docker(self):
@@ -42,13 +42,13 @@ class Platform(ABC):
     @UI.section("Installing Rust")
     def install_rust(self):
         if shutil.which("rustup"):
-            UI.warning("Rust is already installed, skipping")
-            return
-        run_shell(
+            if UI.confirm("Rust is already installed, do you want to reinstall?"):
+                return
+        run(
             "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y"
         )
-        run_shell("mkdir -p ${HOME}/.cargo")
-        run_shell("ln -s $(realpath .cargo/config.toml) ${HOME}/.cargo/config.toml")
+        run("mkdir -p ${HOME}/.cargo")
+        run("ln -s $(realpath .cargo/config.toml) ${HOME}/.cargo/config.toml")
 
     @abstractmethod
     def install_golang(self):
@@ -74,28 +74,28 @@ class Ubuntu(Platform):
             for line in f:
                 key, value = line.strip().split("=")
                 self.os_release[key] = value
-        self.arch = run_shell("dpkg --print-architecture")
+        self.arch = run("dpkg --print-architecture")
 
     @UI.section("Installing utilities")
     def install_utilities(self):
-        run_shell("sudo apt update")
-        run_shell("sudo apt install -y build-essential make jq")
+        run("sudo apt update")
+        run("sudo apt install -y build-essential make jq")
         super().install_utilities()
 
     @UI.section("Installing Docker")
     def install_docker(self):
         if shutil.which("docker"):
-            UI.warning("Docker is already installed, skipping")
-            return
+            if UI.confirm("Docker is already installed, do you want to reinstall?"):
+                return
 
         UI.step("Install dependencies")
-        run_shell("sudo apt-get update")
-        run_shell("sudo apt-get install -y ca-certificates curl")
-        run_shell("sudo install -m 0755 -d /etc/apt/keyrings")
-        run_shell(
+        run("sudo apt-get update")
+        run("sudo apt-get install -y ca-certificates curl")
+        run("sudo install -m 0755 -d /etc/apt/keyrings")
+        run(
             "sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc"
         )
-        run_shell("sudo chmod a+r /etc/apt/keyrings/docker.asc")
+        run("sudo chmod a+r /etc/apt/keyrings/docker.asc")
 
         UI.step("Add Docker repository")
         with open("/etc/apt/sources.list.d/docker.list", "w") as f:
@@ -104,60 +104,62 @@ class Ubuntu(Platform):
             f.write(
                 f"deb [arch={arch}] https://download.docker.com/linux/ubuntu {codename} stable"
             )
-        run_shell("sudo apt-get update")
+        run("sudo apt-get update")
         UI.step("Install Docker")
-        run_shell(
+        run(
             "sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin"
         )
-        run_shell("sudo usermod -aG docker ${USER}")
+        run("sudo usermod -aG docker ${USER}")
 
     @UI.section("Installing Fish")
     def install_fish(self):
         if shutil.which("fish"):
-            UI.warning("Fish is already installed, skipping")
-            return
+            if UI.confirm("Fish is already installed, do you want to reinstall?"):
+                return
 
         UI.step("Install fish")
-        run_shell("sudo apt-add-repository -y ppa:fish-shell/release-3")
-        run_shell("sudo apt update")
-        run_shell("sudo apt install -y fish")
+        run("sudo apt-add-repository -y ppa:fish-shell/release-3")
+        run("sudo apt update")
+        run("sudo apt install -y fish")
 
         UI.step("Install fisher")
-        run_shell(
+        run(
             "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source"
         )
-        run_shell("fisher install jorgebucaran/fisher")
-        run_shell("fisher install jethrokuan/z")
+        run("fisher install jorgebucaran/fisher")
+        run("fisher install jethrokuan/z")
 
         UI.step("Setup fish config")
-        run_shell("mkdir -p ${HOME}/.config/fish")
-        run_shell(
+        run("mkdir -p ${HOME}/.config/fish")
+        run(
             "ln -sf $(realpath .config/fish/config.fish) ~/.config/fish/config.fish"
         )
-        run_shell(
+        run(
             "ln -sf $(realpath .config/fish/fish_plugins) ~/.config/fish/fish_plugins"
         )
 
         UI.step("Change shell to fish")
-        run_shell(
+        run(
             "sudo sed -i 's/auth\s\+required\s\+pam_shells.so/auth sufficient pam_shells.so/g' /etc/pam.d/chsh"
         )
-        run_shell("chsh -s $(which fish)")
+        run("chsh -s $(which fish)")
 
     @UI.section("Installing Go")
     def install_golang(self):
         if shutil.which("go"):
-            UI.warning("Go is already installed, skipping")
-            return
+            if UI.confirm("Go is already installed, do you want to reinstall?"):
+                return
+
+        UI.step(f"Downloading Go {versions['go']}")
 
         url = "https://go.dev/dl/go${}.linux-amd64.tar.gz".format(versions["go"])
         path = "${HOME}/downloads/go.tar.gz"
 
-        run_shell("mkdir -p ${HOME}/downloads")
-        run_shell(f"curl -o ${path} ${url}")
+        run("mkdir -p ${HOME}/downloads")
+        run(f"curl -o ${path} ${url}")
 
-        run_shell("sudo rm -rf /usr/local/go")
-        run_shell(f"sudo tar -C /usr/local -xzf ${path}")
+        run("sudo rm -rf /usr/local/go")
+        run(f"sudo tar -C /usr/local -xzf ${path}")
 
 
 class MacOS(Platform):
@@ -168,8 +170,8 @@ class MacOS(Platform):
     @UI.section("Installing Docker")
     def install_docker(self):
         if shutil.which("docker"):
-            UI.warning("Docker is already installed, skipping")
-            return
+            if UI.confirm("Docker is already installed, do you want to reinstall?"):
+                return
 
     @UI.section("Installing Fish")
     def install_fish(self):
@@ -180,8 +182,8 @@ class MacOS(Platform):
     @UI.section("Installing Go")
     def install_golang(self):
         if shutil.which("go"):
-            UI.warning("Go is already installed, skipping")
-            return
+            if UI.confirm("Go is already installed, do you want to reinstall?"):
+                return
 
 
 class Action(Enum):

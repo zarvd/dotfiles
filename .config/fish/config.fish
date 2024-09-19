@@ -107,7 +107,7 @@ function setup_alias
     # OS
     alias ls="lsd"
     alias tree="lsd --tree"
-    alias l="lsd -al"
+    alias l="lsd -al --group-directories-first"
     alias ...="cd ../.."
     alias ....="cd ../../.."
     alias .....="cd ../../../.."

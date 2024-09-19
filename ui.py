@@ -124,7 +124,9 @@ class UI:
 
     @staticmethod
     def info(message: str):
-        pass
+        now = datetime.now().strftime("%H:%M:%S")
+        text = f"{Color.fg_cyan(now)} {Color.fg_blue('INFO')} {message}"
+        print(text)
 
     @staticmethod
     def warning(message: str):
@@ -134,4 +136,20 @@ class UI:
 
     @staticmethod
     def error(message: str):
-        pass
+        now = datetime.now().strftime("%H:%M:%S")
+        text = f"{Color.fg_cyan(now)} {Color.fg_red('ERROR')} {message}"
+        print(text)
+
+    @staticmethod
+    def confirm(message: str) -> bool:
+        now = datetime.now().strftime("%H:%M:%S")
+        prompt = f"{Color.fg_cyan(now)} {Color.fg_yellow('CONFIRM')} {message} (y/n): "
+        while True:
+            response = input(prompt).lower().strip()
+            if response in ['y', 'yes']:
+                return True
+            elif response in ['n', 'no']:
+                return False
+            else:
+                print("Please enter 'y' or 'n'.")
+

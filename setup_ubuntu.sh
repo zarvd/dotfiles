@@ -70,7 +70,7 @@ function setup_golang() {
     return
   fi
 
-  VERSION="1.22.2"
+  VERSION="1.23.1"
   URL="https://go.dev/dl/go${VERSION}.linux-amd64.tar.gz"
   DIR="${HOME}/downloads"
 
@@ -169,7 +169,7 @@ function install_utilities() {
 
   sudo apt update
   sudo apt install -y build-essential make jq
-  cargo install bat fd-find git-delta just lsd ripgrep tealdeer tokei
+  cargo install bat fd-find git-delta just lsd ripgrep tealdeer tokei --locked --force
 }
 
 export PATH=$PATH:$HOME/.cargo/bin
