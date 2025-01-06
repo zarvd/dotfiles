@@ -158,6 +158,7 @@ function setup_alias
     alias grbc="git rebase --continue"
     alias grba="git rebase --abort"
     alias grhh="git reset --hard"
+    alias ggc="git gc --aggressive --prune=now"
 
     # Keybindings
     bind \cu backward-kill-line
