@@ -70,7 +70,7 @@ function setup_golang() {
     return
   fi
 
-  VERSION="1.23.4"
+  VERSION="1.24.0"
   URL="https://go.dev/dl/go${VERSION}.linux-amd64.tar.gz"
   DIR="${HOME}/downloads"
 
