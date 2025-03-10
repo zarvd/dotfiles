@@ -70,7 +70,8 @@ function setup_golang() {
     return
   fi
 
-  VERSION="1.24.0"
+  # Get the latest Go version from the official API
+  VERSION=$(curl -s https://go.dev/dl/?mode=json | jq -r '.[0].version' | sed 's/go//')
   URL="https://go.dev/dl/go${VERSION}.linux-amd64.tar.gz"
   DIR="${HOME}/downloads"
 
