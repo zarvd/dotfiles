@@ -26,9 +26,9 @@ function setup_fish() {
   sudo apt install -y fish
 
   # install fisher and plugin
-  curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
-  fisher install jorgebucaran/fisher
-  fisher install jethrokuan/z
+  curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | fish -c source
+  fish -c "fisher install jorgebucaran/fisher"
+  fish -c "fisher install jethrokuan/z"
   # link fish config
   mkdir -p ~/.config/fish
   ln -sf "$(realpath .config/fish/config.fish)" ~/.config/fish/config.fish
@@ -65,13 +65,24 @@ function setup_rust() {
 function setup_golang() {
   print_section "Setup Golang"
 
+# Get the latest Go version from the official API
+  VERSION=$(curl -s https://go.dev/dl/?mode=json | jq -r '.[0].version' | sed 's/go//')
+
   if command -v go &> /dev/null; then
-    echo "Skip"
-    return
+    # Check if the installed version is the latest
+    INSTALLED_VERSION=$(go version | awk '{print $3}' | sed 's/go//')
+    
+    # Compare versions
+    if [ "$INSTALLED_VERSION" = "$VERSION" ]; then
+      echo "Go is already at the latest version ($VERSION)"
+      return
+    elif [ -n "$INSTALLED_VERSION" ]; then
+      echo "Updating Go from version $INSTALLED_VERSION to $VERSION"
+    fi
   fi
 
-  # Get the latest Go version from the official API
-  VERSION=$(curl -s https://go.dev/dl/?mode=json | jq -r '.[0].version' | sed 's/go//')
+  echo "Installing Go version $VERSION"
+  
   URL="https://go.dev/dl/go${VERSION}.linux-amd64.tar.gz"
   DIR="${HOME}/downloads"
 
@@ -169,7 +180,7 @@ function install_utilities() {
   print_section "Install Utilities"
 
   sudo apt update
-  sudo apt install -y build-essential make jq
+  sudo apt install -y build-essential make jq yq htop
   cargo install bat fd-find git-delta just lsd ripgrep tealdeer tokei --locked --force
 }
 
