@@ -110,7 +110,7 @@ function setup_bat() {
 }
 
 function setup_vim() {
-  print_section "Setup IdeaVim"
+  print_section "Setup Vim"
 
   sudo apt update
   sudo apt install -y neovim
@@ -181,7 +181,7 @@ function install_utilities() {
 
   sudo apt update
   sudo apt install -y build-essential make jq yq htop
-  cargo install bat fd-find git-delta just lsd ripgrep tealdeer tokei --locked --force
+  cargo install bat fd-find git-delta du-dust just lsd ripgrep tealdeer tokei --locked --force
 }
 
 export PATH=$PATH:$HOME/.cargo/bin
