@@ -6,10 +6,10 @@ function use-sd -a underlay
   switch $underlay
     case svc
       echo "Switching to svc underlay cluster"
-      set -gx KUBECONFIG (printf "%s/.kube/%s-eastus2-svc-0-kubeconfig" $HOME $build_version)
+      set -gx KUBECONFIG (printf "%s/.kube/hcp%s-eastus2-svc-0-kubeconfig" $HOME $build_version)
     case cx
       echo "Switching to cx underlay cluster"
-      set -gx KUBECONFIG (printf "%s/.kube/%s-eastus2-cx-1-kubeconfig" $HOME $build_version)
+      set -gx KUBECONFIG (printf "%s/.kube/hcp%s-eastus2-cx-1-kubeconfig" $HOME $build_version)
     case '*'
       echo "Invalid underlay: $underlay"
       return 1

@@ -33,8 +33,6 @@ function setup_fish() {
   mkdir -p ~/.config/fish
   ln -sf "$(realpath .config/fish/config.fish)" ~/.config/fish/config.fish
   ln -sf "$(realpath .config/fish/fish_plugins)" ~/.config/fish/fish_plugins
-  # Create and link the fish functions directory
-  mkdir -p ~/.config/fish/func
   ln -sf "$(realpath .config/fish/func)" ~/.config/fish/func
 
   ENV_FISH_FILE="${HOME}/.env.fish"
