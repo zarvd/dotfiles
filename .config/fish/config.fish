@@ -188,3 +188,21 @@ function unset_proxy
     set -e all_proxy
     set -e ALL_PROXY
 end
+
+function load_fish_functions
+    set -l func_dir ~/.config/fish/func
+    
+    if test -d $func_dir
+        for func_file in $func_dir/*.fish
+            if test -f $func_file
+                source $func_file
+                echo "Loaded function file: "(basename $func_file)
+            end
+        end
+    else
+        echo "Function directory not found: $func_dir"
+    end
+end
+
+# Load all fish function files
+load_fish_functions
