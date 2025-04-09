@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-CUR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-source "$CUR_DIR/helper.sh"
+source "setup/helper.sh"
 
 function setup_git() {
   print_section "Setup Git"
