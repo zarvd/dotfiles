@@ -3,15 +3,17 @@
 set -x
 set -e -o pipefail
 
-source ./setup/helper.sh
-source ./setup/fish.sh
-source ./setup/git.sh
-source ./setup/rust.sh
-source ./setup/golang.sh
-source ./setup/docker.sh
-source ./setup/vim.sh
-source ./setup/bat.sh
-source ./setup/utilities.sh
+CUR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+source "$CUR_DIR/setup/helper.sh"
+source "$CUR_DIR/setup/fish.sh"
+source "$CUR_DIR/setup/git.sh"
+source "$CUR_DIR/setup/rust.sh"
+source "$CUR_DIR/setup/golang.sh"
+source "$CUR_DIR/setup/docker.sh"
+source "$CUR_DIR/setup/vim.sh"
+source "$CUR_DIR/setup/bat.sh"
+source "$CUR_DIR/setup/utilities.sh"
 
 export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:$HOME/go/bin
