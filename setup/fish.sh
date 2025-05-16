@@ -16,8 +16,8 @@ function setup_fish() {
 
   # install fisher and plugin
   curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | fish -c source
-  fish -c "fisher install jorgebucaran/fisher"
-  fish -c "fisher install jethrokuan/z"
+  #fish -c "fisher install jorgebucaran/fisher"
+  #fish -c "fisher install jethrokuan/z"
   # link fish config
   mkdir -p ~/.config/fish
   ln -sf "$(realpath .config/fish/config.fish)" ~/.config/fish/config.fish

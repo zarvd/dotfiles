@@ -26,7 +26,7 @@ function setup_golang() {
   URL="https://go.dev/dl/go${VERSION}.linux-amd64.tar.gz"
   DIR="${HOME}/downloads"
 
-  mkdir "${DIR}"
+  mkdir -p "${DIR}"
   pushd "${DIR}"
   wget "${URL}"
 
