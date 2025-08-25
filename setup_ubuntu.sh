@@ -6,6 +6,7 @@ set -e -o pipefail
 CUR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 source "$CUR_DIR/setup/helper.sh"
+source "$CUR_DIR/setup/pre.sh"
 source "$CUR_DIR/setup/fish.sh"
 source "$CUR_DIR/setup/git.sh"
 source "$CUR_DIR/setup/rust.sh"
@@ -23,6 +24,7 @@ CMD=$1
 
 case $CMD in
   all)
+    setup_pre
     setup_fish
     setup_git
     setup_rust

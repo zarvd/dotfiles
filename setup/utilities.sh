@@ -7,5 +7,5 @@ function install_utilities() {
 
   sudo apt update
   sudo apt install -y build-essential make jq yq htop
-  cargo install bat fd-find git-delta du-dust just lsd ripgrep tealdeer tokei --locked --force
+  cargo install bat fd-find git-delta du-dust just lsd ripgrep tealdeer tokei ouch --locked --force
 }
