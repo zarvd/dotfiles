@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-source "setup/helper.sh"
+GIT_ROOT=$(git rev-parse --show-toplevel)
+
+source "${GIT_ROOT}/lib/_includes.sh"
 
 function setup_fish() {
   print_section "Setup Fish"
@@ -20,19 +22,19 @@ function setup_fish() {
   #fish -c "fisher install jethrokuan/z"
   # link fish config
   mkdir -p ~/.config/fish
-  ln -sf "$(realpath .config/fish/config.fish)" ~/.config/fish/config.fish
-  ln -sf "$(realpath .config/fish/fish_plugins)" ~/.config/fish/fish_plugins
-  ln -sf "$(realpath .config/fish/func)" ~/.config/fish/func
+  ln -sf "${GIT_ROOT}/.config/fish/config.fish" ~/.config/fish/config.fish
+  ln -sf "${GIT_ROOT}/.config/fish/fish_plugins" ~/.config/fish/fish_plugins
+  ln -sf "${GIT_ROOT}/.config/fish/func" ~/.config/fish/func
 
-  ENV_FISH_FILE="${HOME}/.env.fish"
+  local env_fish_file="${HOME}/.env.fish"
 
-  if [ ! -e "${ENV_FISH_FILE}" ]; then
+  if [ ! -e "${env_fish_file}" ]; then
     # init env
-    touch "${ENV_FISH_FILE}"
-    echo 'fish_add_path $HOME/.cargo/bin' >> "${ENV_FISH_FILE}"
+    touch "${env_fish_file}"
+    echo 'fish_add_path $HOME/.cargo/bin' >> "${env_fish_file}"
 
-    echo 'fish_add_path $HOME/go/bin' >> "${ENV_FISH_FILE}"
-    echo 'fish_add_path /usr/local/go/bin' >> "${ENV_FISH_FILE}"
+    echo 'fish_add_path $HOME/go/bin' >> "${env_fish_file}"
+    echo 'fish_add_path /usr/local/go/bin' >> "${env_fish_file}"
   fi
 
   sudo sed -i 's/auth\s\+required\s\+pam_shells.so/auth sufficient pam_shells.so/g' /etc/pam.d/chsh

@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-source "setup/helper.sh"
+GIT_ROOT=$(git rev-parse --show-toplevel)
+
+source "${GIT_ROOT}/lib/_includes.sh"
 
 function setup_docker() {
   print_section "Setup Docker"

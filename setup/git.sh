@@ -1,22 +1,24 @@
 #!/usr/bin/env bash
 
-source "setup/helper.sh"
+GIT_ROOT=$(git rev-parse --show-toplevel)
+
+source "${GIT_ROOT}/lib/_includes.sh"
 
 function setup_git() {
   print_section "Setup Git"
 
-  DIR="${HOME}/.config/git"
-  if [ -e "${DIR}/config" ]; then
+  local dir="${HOME}/.config/git"
+  if [ -e "${dir}/config" ]; then
     echo "Skip"
     return
   fi
 
-  mkdir -p "${DIR}"
-  ln -s "$(realpath .config/git/config)" "${DIR}/config"
+  mkdir -p "${dir}"
+  ln -s "${GIT_ROOT}/.config/git/config" "${dir}/config"
 
-  CFG="${HOME}/.gitconfig"
-  touch "${CFG}"
-  cat > "${CFG}" <<EOL
+  local cfg="${HOME}/.gitconfig"
+  touch "${cfg}"
+  cat > "${cfg}" <<EOL
 
 [include]
   path = ~/.config/git/config

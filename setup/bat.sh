@@ -1,17 +1,19 @@
 #!/usr/bin/env bash
 
-source "setup/helper.sh"
+GIT_ROOT=$(git rev-parse --show-toplevel)
+
+source "${GIT_ROOT}/lib/_includes.sh"
 
 function setup_bat() {
   print_section "Setup Bat"
 
-  DIR="${HOME}/.config/bat"
+  local dir="${HOME}/.config/bat"
 
-  if [ -e "${DIR}/config" ]; then
+  if [ -e "${dir}/config" ]; then
     echo "Skip"
     return
   fi
 
-  mkdir -p "${DIR}"
-  ln -s "$(realpath .config/bat/config)" "${DIR}/config"
+  mkdir -p "${dir}"
+  ln -s "${GIT_ROOT}/.config/bat/config" "${dir}/config"
 }

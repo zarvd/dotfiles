@@ -1,20 +1,10 @@
 #!/usr/bin/env bash
 
-set -x
 set -e -o pipefail
 
-CUR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+GIT_ROOT=$(git rev-parse --show-toplevel)
 
-source "$CUR_DIR/setup/helper.sh"
-source "$CUR_DIR/setup/pre.sh"
-source "$CUR_DIR/setup/fish.sh"
-source "$CUR_DIR/setup/git.sh"
-source "$CUR_DIR/setup/rust.sh"
-source "$CUR_DIR/setup/golang.sh"
-source "$CUR_DIR/setup/docker.sh"
-source "$CUR_DIR/setup/vim.sh"
-source "$CUR_DIR/setup/bat.sh"
-source "$CUR_DIR/setup/utilities.sh"
+source "${GIT_ROOT}/setup/_includes.sh"
 
 export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:$HOME/go/bin

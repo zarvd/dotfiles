@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-source "setup/helper.sh"
+GIT_ROOT=$(git rev-parse --show-toplevel)
+
+source "${GIT_ROOT}/lib/_includes.sh"
 
 function setup_vim() {
   print_section "Setup Vim"
@@ -17,6 +19,6 @@ function setup_vim() {
     rm "${HOME}/.config/nvim/init.vim"
   fi
 
-  ln -s "$(realpath .config/nvim/init.vim)" "${HOME}/.config/nvim/init.vim"
-  ln -s "$(realpath .ideavimrc)" "${HOME}/.ideavimrc"
+  ln -s "${GIT_ROOT}/.config/nvim/init.vim" "${HOME}/.config/nvim/init.vim"
+  ln -s "${GIT_ROOT}/.ideavimrc" "${HOME}/.ideavimrc"
 }

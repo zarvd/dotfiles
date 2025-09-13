@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-source "setup/helper.sh"
+GIT_ROOT=$(git rev-parse --show-toplevel)
+
+source "${GIT_ROOT}/lib/_includes.sh"
 
 function setup_rust() {
   print_section "Setup Rust"
@@ -12,5 +14,5 @@ function setup_rust() {
 
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
   mkdir -p "${HOME}/.cargo"
-  ln -s "$(realpath .cargo/config.toml)" "${HOME}/.cargo/config.toml"
+  ln -s "${GIT_ROOT}/.cargo/config.toml" "${HOME}/.cargo/config.toml"
 }
