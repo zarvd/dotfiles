@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 function print_section() {
-  local SECTION=$1
-  local BLUE='\033[0;34m'
-  local NC='\033[0m' # No Color
+  local section=$1
+  local blue='\033[0;34m'
+  local nc='\033[0m' # No Color
 
   set +x
-  echo -e "${BLUE}======================================${NC}"
-  echo -e "${BLUE}${SECTION}${NC}"
-  echo -e "${BLUE}======================================${NC}"
+  echo -e "${blue}======================================${nc}"
+  echo -e "${blue}${section}${nc}"
+  echo -e "${blue}======================================${nc}"
   set -x
 }

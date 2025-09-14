@@ -4,7 +4,7 @@ set -e -o pipefail
 
 GIT_ROOT=$(git rev-parse --show-toplevel)
 
-source "${GIT_ROOT}/setup/_includes.sh"
+source "${GIT_ROOT}/components/_includes.sh"
 
 export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:$HOME/go/bin
@@ -24,11 +24,14 @@ case $CMD in
     setup_bat
     install_utilities
     ;;
+  utilities)
+    install_utilities
+    ;;
   golang)
     setup_golang
     ;;
   *)
-    echo "Usage: $0 all | golang"
+    echo "Usage: $0 all | golang | utilities"
     exit 1
     ;;
 esac
