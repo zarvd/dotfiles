@@ -14,7 +14,7 @@ CMD=$1
 
 case $CMD in
   all)
-    setup_pre
+    install_prerequisites
     setup_fish
     setup_git
     setup_rust
@@ -24,6 +24,9 @@ case $CMD in
     setup_bat
     install_utilities
     ;;
+  prerequisites)
+    install_prerequisites
+    ;;
   utilities)
     install_utilities
     ;;
@@ -31,7 +34,7 @@ case $CMD in
     setup_golang
     ;;
   *)
-    echo "Usage: $0 all | golang | utilities"
+    echo "Usage: $0 all | prerequisites | golang | utilities"
     exit 1
     ;;
 esac

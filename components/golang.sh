@@ -8,11 +8,13 @@ function setup_golang() {
   print_section "Setup Golang"
 
   # Get the latest Go version from the official API
-  local version=$(curl -s https://go.dev/dl/?mode=json | jq -r '.[0].version' | sed 's/go//')
+  local version
+  version=$(curl -s https://go.dev/dl/?mode=json | jq -r '.[0].version' | sed 's/go//')
 
   if command -v go &> /dev/null; then
     # Check if the installed version is the latest
-    local installed_version=$(go version | awk '{print $3}' | sed 's/go//')
+    local installed_version
+    installed_version=$(go version | awk '{print $3}' | sed 's/go//')
     
     # Compare versions
     if [ "$installed_version" = "$version" ]; then
@@ -29,10 +31,10 @@ function setup_golang() {
   local dir="${HOME}/downloads"
 
   mkdir -p "${dir}"
-  pushd "${dir}"
+  pushd "${dir}" || exit 1
   wget "${url}"
 
   sudo rm -rf /usr/local/go
-  sudo tar -C /usr/local -xzf go${version}.linux-amd64.tar.gz
-  popd
+  sudo tar -C /usr/local -xzf "go${version}.linux-amd64.tar.gz"
+  popd || exit 1
 }

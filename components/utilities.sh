@@ -22,5 +22,5 @@ function install_utilities() {
     typst-cli
   )
 
-  cargo install ${utilities[@]} --locked
+  cargo install "${utilities[@]}" --locked
 }

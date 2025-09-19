@@ -4,7 +4,7 @@ GIT_ROOT=$(git rev-parse --show-toplevel)
 
 source "${GIT_ROOT}/lib/_includes.sh"
 
-function install_pre() {
+function install_prerequisites() {
   print_section "Install Prerequisites"
 
   install_jq

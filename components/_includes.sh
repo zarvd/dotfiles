@@ -3,7 +3,7 @@
 GIT_ROOT=$(git rev-parse --show-toplevel)
 COMPONENTS_ROOT="${GIT_ROOT}/components"
 
-source "$COMPONENTS_ROOT/pre.sh"
+source "$COMPONENTS_ROOT/prerequisites.sh"
 source "$COMPONENTS_ROOT/fish.sh"
 source "$COMPONENTS_ROOT/git.sh"
 source "$COMPONENTS_ROOT/rust.sh"
