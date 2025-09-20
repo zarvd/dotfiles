@@ -4,11 +4,11 @@ GIT_ROOT=$(git rev-parse --show-toplevel)
 
 source "${GIT_ROOT}/lib/_includes.sh"
 
-function install_prerequisites() {
-  print_section "Install Prerequisites"
+function prerequisites::install() {
+  log::section "Install Prerequisites"
 
-  install_jq
-  install_yq
+  jq::install
+  yq::install
 
   case "$(uname)" in
     Darwin)
@@ -26,14 +26,14 @@ function install_prerequisites() {
   esac
 }
 
-function install_jq() {
+function jq::install() {
   if command -v jq &> /dev/null; then
     return
   fi
 
   echo "Installing jq"
 
-  local version="1.8.1"
+  local -r version="1.8.1"
   local url
   case "$(uname)" in
     Darwin)
@@ -51,14 +51,14 @@ function install_jq() {
   download_binary "jq" "${version}" "${url}"
 }
 
-function install_yq() {
+function yq::install() {
   if command -v yq &> /dev/null; then
     return
   fi
 
   echo "Installing yq"
 
-  local version="4.47.2"
+  local -r version="4.47.2"
   local url
   case "$(uname)" in
     Darwin)
@@ -72,6 +72,7 @@ function install_yq() {
       exit 1
       ;;
   esac
+  readonly url
 
   download_binary "yq" "${version}" "${url}"
 }

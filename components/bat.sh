@@ -4,12 +4,12 @@ GIT_ROOT=$(git rev-parse --show-toplevel)
 
 source "${GIT_ROOT}/lib/_includes.sh"
 
-function setup_bat() {
-  print_section "Setup Bat"
+function bat::setup() {
+  log::section "Setup Bat"
 
-  local dir="${HOME}/.config/bat"
+  local -r dir="${HOME}/.config/bat"
 
-  if [ -e "${dir}/config" ]; then
+  if [[ -e "${dir}/config" ]]; then
     echo "Skip"
     return
   fi

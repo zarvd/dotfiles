@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e -o pipefail
+set -euo pipefail
 
 GIT_ROOT=$(git rev-parse --show-toplevel)
 
@@ -10,31 +10,62 @@ export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:$HOME/go/bin
 export PATH=$PATH:/usr/local/go/bin
 
-CMD=$1
+function usage() {
+  echo "Usage: $0 all | prerequisites | utilities | golang | rust | fish | git | docker | vim | bat"
+  exit 1
+}
 
-case $CMD in
-  all)
-    install_prerequisites
-    setup_fish
-    setup_git
-    setup_rust
-    setup_golang
-    setup_docker
-    setup_vim
-    setup_bat
-    install_utilities
-    ;;
-  prerequisites)
-    install_prerequisites
-    ;;
-  utilities)
-    install_utilities
-    ;;
-  golang)
-    setup_golang
-    ;;
-  *)
-    echo "Usage: $0 all | prerequisites | golang | utilities"
-    exit 1
-    ;;
-esac
+function main() {
+  local -r cmd=$1
+
+  case $cmd in
+    all)
+      prerequisites::install
+      fish::install
+      rust::install
+      golang::install
+      docker::install
+      vim::install
+      utilities::install
+
+      git::setup
+      bat::setup
+      ;;
+    prerequisites)
+      prerequisites::install
+      ;;
+    utilities)
+      utilities::install
+      ;;
+    golang)
+      golang::install
+      ;;
+    rust)
+      rust::install
+      ;;
+    fish)
+      fish::install
+      ;;
+    git)
+      git::setup
+      ;;
+    docker)
+      docker::install
+      ;;
+    vim)
+      vim::install
+      ;;
+    bat)
+      bat::setup
+      ;;
+    *)
+      usage
+      ;;
+  esac
+}
+
+if [[ $# -eq 0 ]] || [[ $1 == "help" ]]; then
+  usage
+fi
+
+main "$@"

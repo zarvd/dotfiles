@@ -4,8 +4,8 @@ GIT_ROOT=$(git rev-parse --show-toplevel)
 
 source "${GIT_ROOT}/lib/_includes.sh"
 
-function setup_rust() {
-  print_section "Setup Rust"
+function rust::install() {
+  log::section "Setup Rust"
 
   if command -v cargo &> /dev/null; then
     echo "Skip"

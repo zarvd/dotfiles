@@ -4,37 +4,40 @@ GIT_ROOT=$(git rev-parse --show-toplevel)
 
 source "${GIT_ROOT}/lib/_includes.sh"
 
-function setup_golang() {
-  print_section "Setup Golang"
+function golang::install() {
+  log::section "Setup Golang"
 
   # Get the latest Go version from the official API
   local version
   version=$(curl -s https://go.dev/dl/?mode=json | jq -r '.[0].version' | sed 's/go//')
+  readonly version
 
   if command -v go &> /dev/null; then
     # Check if the installed version is the latest
     local installed_version
     installed_version=$(go version | awk '{print $3}' | sed 's/go//')
+    readonly installed_version
     
     # Compare versions
-    if [ "$installed_version" = "$version" ]; then
+    if [[ "$installed_version" = "$version" ]]; then
       echo "Go is already at the latest version ($version)"
       return
-    elif [ -n "$installed_version" ]; then
+    elif [[ -n "$installed_version" ]]; then
       echo "Updating Go from version $installed_version to $version"
     fi
   fi
 
   echo "Installing Go version $version"
   
-  local url="https://go.dev/dl/go${version}.linux-amd64.tar.gz"
-  local dir="${HOME}/downloads"
+  local -r url="https://go.dev/dl/go${version}.linux-amd64.tar.gz"
+  local -r dir="${HOME}/downloads"
 
   mkdir -p "${dir}"
-  pushd "${dir}" || exit 1
-  wget "${url}"
+  (
+    cd "${dir}"
+    wget "${url}"
 
-  sudo rm -rf /usr/local/go
-  sudo tar -C /usr/local -xzf "go${version}.linux-amd64.tar.gz"
-  popd || exit 1
+    sudo rm -rf /usr/local/go
+    sudo tar -C /usr/local -xzf "go${version}.linux-amd64.tar.gz"
+  )
 }

@@ -4,10 +4,10 @@ GIT_ROOT=$(git rev-parse --show-toplevel)
 
 source "${GIT_ROOT}/lib/_includes.sh"
 
-function install_utilities() {
-  print_section "Install Utilities"
+function utilities::install() {
+  log::section "Install Utilities"
 
-  local utilities=(
+  local -ra utilities=(
     bat
     lsd
     fd-find

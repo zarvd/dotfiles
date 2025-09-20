@@ -4,11 +4,11 @@ GIT_ROOT=$(git rev-parse --show-toplevel)
 
 source "${GIT_ROOT}/lib/_includes.sh"
 
-function setup_git() {
-  print_section "Setup Git"
+function git::setup() {
+  log::section "Setup Git"
 
-  local dir="${HOME}/.config/git"
-  if [ -e "${dir}/config" ]; then
+  local -r dir="${HOME}/.config/git"
+  if [[ -e "${dir}/config" ]]; then
     echo "Skip"
     return
   fi
@@ -16,9 +16,9 @@ function setup_git() {
   mkdir -p "${dir}"
   ln -s "${GIT_ROOT}/.config/git/config" "${dir}/config"
 
-  local cfg="${HOME}/.gitconfig"
-  touch "${cfg}"
-  cat > "${cfg}" <<EOL
+  local -r config_file="${HOME}/.gitconfig"
+  touch "${config_file}"
+  cat > "${config_file}" <<EOL
 
 [include]
   path = ~/.config/git/config
