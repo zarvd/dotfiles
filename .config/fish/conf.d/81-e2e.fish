@@ -1,15 +1,16 @@
 function use-sd --argument-names underlay
     set --local build_version (cat azureconfig.yaml | yq -r .azure.build_version)
+    set --local location (cat azureconfig.yaml | yq -r .azure.location)
 
     echo "Build version: $build_version"
 
     switch $underlay
         case svc
             echo "Switching to svc underlay cluster"
-            set --global --export KUBECONFIG (printf "%s/.kube/hcp%s-eastus2-svc-0-kubeconfig" $HOME $build_version)
+            set --global --export KUBECONFIG (printf "%s/.kube/hcp%s-%s-svc-0-kubeconfig" $HOME $build_version $location)
         case cx
             echo "Switching to cx underlay cluster"
-            set --global --export KUBECONFIG (printf "%s/.kube/hcp%s-eastus2-cx-1-kubeconfig" $HOME $build_version)
+            set --global --export KUBECONFIG (printf "%s/.kube/hcp%s-%s-cx-1-kubeconfig" $HOME $build_version $location)
         case '*'
             echo "Invalid underlay: $underlay"
             return 1
