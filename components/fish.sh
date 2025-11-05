@@ -7,11 +7,6 @@ source "${GIT_ROOT}/lib/_includes.sh"
 function fish::install() {
   log::section "Setup Fish"
 
-  if command -v fish &> /dev/null; then
-    echo "Skip"
-    return
-  fi
-
   fish::install-by-apt
   fish::setup-fisher
   fish::setup-config
@@ -20,6 +15,11 @@ function fish::install() {
 }
 
 function fish::install-by-apt() {
+  if command -v fish &> /dev/null; then
+    echo "Skip installing fish by apt"
+    return
+  fi
+
   sudo apt-add-repository -y ppa:fish-shell/release-3
   sudo apt update
   sudo apt install -y fish
@@ -33,9 +33,14 @@ function fish::setup-fisher() {
 
 function fish::setup-config() {
   mkdir -p ~/.config/fish
-  ln -sf "${GIT_ROOT}/.config/fish/config.fish" ~/.config/fish/config.fish
   ln -sf "${GIT_ROOT}/.config/fish/fish_plugins" ~/.config/fish/fish_plugins
-  ln -sf "${GIT_ROOT}/.config/fish/func" ~/.config/fish/func
+  ln -sf "${GIT_ROOT}/.config/fish/config.fish" ~/.config/fish/config.fish
+
+  mkdir -p ~/.config/fish/conf.d
+  local file
+  for file in "${GIT_ROOT}/.config/fish/conf.d"/*.fish; do
+    ln -sf "$file" ~/.config/fish/conf.d/$(basename "$file")
+  done
 }
 
 function fish::setup-env() {
